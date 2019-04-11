@@ -53,7 +53,7 @@ class RequestXmlServiceProvider extends ServiceProvider
     protected function registerIsXml()
     {
         Request::macro('isXml', function () {
-            return strtolower($this->getContentType()) === 'xml' || strtolower($this->getContentType()) === 'application/soap+xml';
+            return strtolower($this->header('Content-Type')) === 'text/xml' || strtolower($this->header('Content-Type')) === 'application/soap+xml';
         });
     }
 
