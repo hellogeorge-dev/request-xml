@@ -53,7 +53,7 @@ class RequestXmlServiceProvider extends ServiceProvider
     protected function registerIsXml()
     {
         Request::macro('isXml', function () {
-            return strtolower($this->getContentType()) === 'xml';
+            return strtolower($this->getContentType()) === 'xml' || strtolower($this->getContentType()) === 'application/soap+xml';
         });
     }
 
@@ -71,7 +71,7 @@ class RequestXmlServiceProvider extends ServiceProvider
             try {
                 return XmlToArray::convert($this->getContent()) ?: [];
             } catch (Exception $exception) {
-                throw CouldNotParseXml::payload($this->getContent());
+                throw CouldNotParseXml::payload($exception->getMessage());
             }
         });
     }
